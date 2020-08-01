@@ -22,7 +22,7 @@ class Linkedlist:
         current.next = Newnode
 
     def printlist(self):
-        current = head.next
+        current = self.head.next
         while(current != null):
             print(current.data)
             if current.next == None:
