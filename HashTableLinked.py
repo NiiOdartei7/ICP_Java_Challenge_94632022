@@ -23,7 +23,7 @@ class Linkedlist:
 
     def printlist(self):
         current = self.head.next
-        while(current != null):
+        while(current != None):
             print(current.data)
             if current.next == None:
                 print(".")
