@@ -43,7 +43,7 @@ class HashTable:
         hash_func = x%self.MaxArraySize
 
         if self.items[hash_func] == None:
-            self.items[hash_func] == self.l_items
+            self.items[hash_func] = self.l_items
 
             self.l_items.addNode(x)
 
@@ -54,7 +54,7 @@ class HashTable:
 
         for i in range(self.MaxArraySize - 1):
             if self.items[i] == self.l_items:
-                print("At index", i, "")
+                print("At index ", i, " the list is ", self.l_items.printlist())
 
 
 
