@@ -1,0 +1,74 @@
+import numpy
+
+
+class Node:
+
+    def __init__(self,data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class HashTable:
+    MaxArraySize = 20
+
+
+    def __init__(self):
+        self.slots = [None]*self.MaxArraySize
+        self.size = 0
+
+    def hash(self, x):
+
+        hash_func = x % self.MaxArraySize
+        return hash_func
+
+    def insert(self,x):
+        self.size += 1
+
+        index = self.hash(x)
+        root = self.slots[index]
+        root = self.insertData(root,x)
+        self.slots[index] = root
+        print("Value inserted")
+
+    def insertData(self, node, x):
+        if node is None:
+            node = Node(x)
+
+        else:
+            if x <= node.data:
+                node.left = self.insertData(node.left, x)
+
+            else:
+                node.right = self.insertData(node.right, x)
+
+    def inOrder(self, root):
+
+        if root is not None:
+            self.inOrder(root.left)
+            return root.data
+            self.inOrder(root.right)
+
+
+
+
+    def printHashtable(self):
+        for i in range(self.MaxArraySize):
+            print("Bucket ", i , ":  ")
+            self.inOrder(self.slots[i])
+            print(" ")
+
+
+
+
+
+def main():
+
+    a = HashTable()
+
+    a.insert(5)
+    a.insert(10)
+    a.insert(20)
+    a.insert(15)
+    a.printHashtable()
+
+main()
