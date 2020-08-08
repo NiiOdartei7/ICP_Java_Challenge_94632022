@@ -1,3 +1,5 @@
+import numpy
+
 
 class Node:
 
@@ -6,71 +8,60 @@ class Node:
         self.next = None
 
 
-class Linkedlist:
-
-    def __init__(self):
-        self.head = None
-
-    def addNode(self, x):
-        Newnode = Node(x)
-
-        self.head = Node("List Start")
-        current = self.head
-        while current.next != None:
-            current = current.next
-
-        current.next = Newnode
-
-    def printlist(self):
-        current = self.head.next
-        while(current != None):
-            print(current.data)
-            if current.next == None:
-                print(".")
-            else:
-                print(",")
-            current = current.next
-        print(" ")
-
 class HashTable:
     MaxArraySize = 20
 
+
     def __init__(self):
-        self.items = [None]*self.MaxArraySize
-        self.l_items = Linkedlist()
+        self.buckets = [None]*self.MaxArraySize
+        self.size = 0
 
-    def add(self, x):
-        hash_func = x%self.MaxArraySize
+    def hash(self, x):
 
-        if self.items[hash_func] == None:
-            self.items[hash_func] = self.l_items
+        hash_func = x % self.MaxArraySize
+        return hash_func
 
-            self.l_items.addNode(x)
 
-        else:
-            self.l_items.addNode(x)
+    def insert(self, x):
+
+        self.size += 1
+
+        index = self.hash(x)
+
+        node = self.buckets[index]
+
+        if node is None:
+            self.buckets[index] = Node(x)
+
+            return
+
+        prev = node
+        while node is not None:
+            prev = node
+            node = node.next
+
+        prev.next = Node(x)
+
 
     def printHashTable(self):
+        for i in range(self.MaxArraySize):
 
-        for i in range(self.MaxArraySize - 1):
-            if self.items[i] == self.l_items:
-                print("At index ", i, " the list is ", self.l_items.printlist())
-
-
-
-
+            index = self.hash(i)
+            node = self.buckets[index]
+            if node is not None:
+                current = node
+                while (current != None):
+                    print("At index ", i,"the value ", current.data," is located")
+                    current = current.next
+                print(" ")
 
 def main():
 
     a = HashTable()
 
-    a.add(10)
-    a.add(11)
-    a.add(12)
-    a.add(13)
-
+    for i in range(10):
+        a.insert(numpy.random.randint(1,100))
     a.printHashTable()
-
 
 main()
 
