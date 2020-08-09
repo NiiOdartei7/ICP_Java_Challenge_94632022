@@ -1,5 +1,5 @@
 import numpy
-import math
+import timeit
 
 
 class Node:
@@ -10,7 +10,7 @@ class Node:
         self.right = None
 
 class HashTable:
-    MaxArraySize = 20
+    MaxArraySize = 509
 
 
     def __init__(self):
@@ -28,7 +28,7 @@ class HashTable:
         else:
             key = x * x
             a = str(key)
-            output = a[0] + a[1]
+            output = a[len(a) // 2]
 
             g = int(output)
             hash_func = g % self.MaxArraySize
@@ -55,7 +55,7 @@ class HashTable:
         index = self.hash(x)
         root = self.buckets[index]
         root = self.insertData(root,x)
-        self.slots[index] = root
+        self.buckets[index] = root
 
 
     def inOrder(self, root):
@@ -69,17 +69,91 @@ class HashTable:
         for i in range(self.MaxArraySize):
             if self.buckets[i] is not None:
                 print("Bucket ", i , ":  ")
-                print(self.inOrder(self.slots[i]))
+                print(self.inOrder(self.buckets[i]))
                 print(" ")
 
 
-def main():
+def sim():
+    b = HashTable()
 
-    a = HashTable()
+    for i in range(1024):
+        a = 0
+        start_1 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385,65335))
+        end_1 = timeit.default_timer()
+        ftime1 = end_1 - start_1
+        a += ftime1
 
-    for i in range(10):
-        a.insert(numpy.random.randint(1, 100))
+    print(a/1024)
 
-    a.printHashtable()
+    for i in range(1024):
+        a = 0
+        start_2 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_2 = timeit.default_timer()
+        ftime2 = end_2 - start_2
+        a += ftime2
 
-main()
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_3 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_3 = timeit.default_timer()
+        ftime3 = end_3 - start_3
+        a += ftime3
+
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_4 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_4 = timeit.default_timer()
+        ftime4 = end_4 - start_4
+        a += ftime4
+
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_5 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_5 = timeit.default_timer()
+        ftime5 = end_5 - start_5
+        a += ftime5
+
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_6 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_6 = timeit.default_timer()
+        ftime6 = end_6 - start_6
+        a += ftime6
+
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_7 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_7 = timeit.default_timer()
+        ftime7 = end_7 - start_7
+        a += ftime7
+
+    print(a/1024)
+
+    for i in range(1024):
+        a = 0
+        start_8 = timeit.default_timer()
+        b.insert(numpy.random.randint(16385.65335))
+        end_8 = timeit.default_timer()
+        ftime8 = end_8 -start_8
+        a += ftime8
+
+    print(a/1024)
+
+sim()
