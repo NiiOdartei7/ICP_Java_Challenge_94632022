@@ -1,4 +1,5 @@
 import numpy
+import math
 
 
 class Node:
@@ -18,9 +19,23 @@ class HashTable:
 
     def hash(self, x):
 
-        hash_func = x % self.MaxArraySize
-        return hash_func
+        if x == 0:
+            return 0
 
+        elif x <= 3:
+            return x
+
+        else:
+            key = x * x
+            a  = str(key)
+            output = a[0] + a[1]
+
+            g = int(output)
+            hash_func = g % self.MaxArraySize
+
+
+
+            return hash_func
 
     def insert(self, x):
 
@@ -32,7 +47,6 @@ class HashTable:
 
         if node is None:
             self.buckets[index] = Node(x)
-
             return
 
         prev = node
@@ -45,26 +59,20 @@ class HashTable:
 
     def printHashTable(self):
         for i in range(self.MaxArraySize):
-
-            index = self.hash(i)
-            node = self.buckets[index]
-            if node is not None:
-                current = node
-                while (current != None):
-                    print("At index ", i,"the value ", current.data," is located")
-                    current = current.next
+            current = self.buckets[i]
+            if self.buckets[i] is not None:
+                print("At index ", i,"the value ", current.data," is located")
+                current = current.next
                 print(" ")
 
 def main():
-
     a = HashTable()
-
-    for i in range(10):
-        a.insert(numpy.random.randint(1,100))
+    a.insert(15)
+    a.insert(20)
+    a.insert(13)
     a.printHashTable()
 
 main()
-
 
 
 
