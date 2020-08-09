@@ -1,4 +1,5 @@
 import numpy
+import math
 
 
 class Node:
@@ -13,22 +14,26 @@ class HashTable:
 
 
     def __init__(self):
-        self.slots = [None]*self.MaxArraySize
+        self.buckets = [None]*self.MaxArraySize
         self.size = 0
 
     def hash(self, x):
 
-        hash_func = x % self.MaxArraySize
-        return hash_func
+        if x == 0:
+            return 0
 
-    def insert(self,x):
-        self.size += 1
+        elif x <= 3:
+            return x
 
-        index = self.hash(x)
-        root = self.slots[index]
-        root = self.insertData(root,x)
-        self.slots[index] = root
-        print("Value inserted")
+        else:
+            key = x * x
+            a = str(key)
+            output = a[0] + a[1]
+
+            g = int(output)
+            hash_func = g % self.MaxArraySize
+
+            return hash_func
 
     def insertData(self, node, x):
         if node is None:
@@ -38,37 +43,43 @@ class HashTable:
             if x <= node.data:
                 node.left = self.insertData(node.left, x)
 
-            else:
+            if x > node.data:
                 node.right = self.insertData(node.right, x)
+
+        return node
+
+
+    def insert(self,x):
+        self.size += 1
+
+        index = self.hash(x)
+        root = self.buckets[index]
+        root = self.insertData(root,x)
+        self.slots[index] = root
+
 
     def inOrder(self, root):
 
         if root is not None:
             self.inOrder(root.left)
-            return root.data
+            print(root.data)
             self.inOrder(root.right)
-
-
-
 
     def printHashtable(self):
         for i in range(self.MaxArraySize):
-            print("Bucket ", i , ":  ")
-            self.inOrder(self.slots[i])
-            print(" ")
-
-
-
+            if self.buckets[i] is not None:
+                print("Bucket ", i , ":  ")
+                print(self.inOrder(self.slots[i]))
+                print(" ")
 
 
 def main():
 
     a = HashTable()
 
-    a.insert(5)
-    a.insert(10)
-    a.insert(20)
-    a.insert(15)
+    for i in range(10):
+        a.insert(numpy.random.randint(1, 100))
+
     a.printHashtable()
 
 main()
